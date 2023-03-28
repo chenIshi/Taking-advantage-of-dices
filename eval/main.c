@@ -17,7 +17,7 @@ int main() {
        Grouping: 1~20 */
     int expects[GROUPLIMITS] = {0};
     int tmps[GROUPLIMITS]={0};
-    int pts[GROUPLIMITS][EVAL_ITER]={0};
+    int pts[EVAL_ITER][GROUPLIMITS]={0};
     /* 1. Generates GROUPLIMITS * EVAL_ITER times of rand nums.
        2. Each group iterates through EVAL_ITER round of experiments, ignoring redundant nums.
           e.g., Group 2 would only consider the first two nums in each iteration, ignoring 
@@ -33,7 +33,7 @@ int main() {
             } else {
                 tmps[j] = num;
             }
-            pts[j][i] = tmps[j];
+            pts[i][j] = tmps[j];
             expects[j] += tmps[j];
         }
         memset(tmps, 0, sizeof(tmps));
@@ -52,15 +52,21 @@ int main() {
         printf("Error in creating file handler!");   
         exit(1);
     }
-
-    for (int j=0; j<GROUPLIMITS; j++) {
-        fprintf(fptr, "%d", j);
-        for (int i=0; i<EVAL_ITER; i++) {
-            fprintf(fptr, ", %d", pts[j][i]);
+/*
+    fprintf(fptr, "1");
+    for (int j=1; j<GROUPLIMITS; j++) {
+        fprintf(fptr, " %d", j+1);
+    }
+    
+    fprintf(fptr, "\n");
+*/
+    for (int i=0; i<EVAL_ITER; i++) {
+        fprintf(fptr, "%d", pts[i][0]);
+        for (int j=1; j<GROUPLIMITS; j++) {
+            fprintf(fptr, " %d", pts[i][j]);
         }
         fprintf(fptr, "\n");
     }
-
     fclose(fptr);
 
     return 0;
