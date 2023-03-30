@@ -38,11 +38,13 @@ int main() {
         }
         memset(tmps, 0, sizeof(tmps));
     }
-    /*
+    /* Logout simple results for sanity checkes*/
+    
+    printf("Expecation of max results for multiple dice rolling:\n");
     for (int j=0; j<GROUPLIMITS; j++) {
-        printf("%f\n", (float)expects[j]/EVAL_ITER);
+        printf("# of Dice rolling: %d -> %f\n", j+1, (float)expects[j]/EVAL_ITER);
     }
-    */
+    
 
     /* Output results in points */
     FILE *fptr;
